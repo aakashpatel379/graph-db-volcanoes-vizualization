@@ -43,7 +43,7 @@ Agbola Iseoluwatobi:
 ▪ Exploring alternative approaches for creating the graph model and performing queries.
 ▪ Visualization and analytics for the continent with the most super volcanoes.
 
-### REFERENCES
+### References
 
 [1]. Neo4j Graph Database Platform. (2019). Neo4j Graph Platform – The Leader in Graph Databases. Available at: https://neo4j.com/
 [2]. Hal.inria.fr. (2019). Available at: https://hal.inria.fr/hal-01444505/document.
