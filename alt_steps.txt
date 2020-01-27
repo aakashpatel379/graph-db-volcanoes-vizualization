@@ -1,0 +1,37 @@
+1. Create project
+2. Add local graph
+3. Manage> Setting
+4. Comment "dbms.directories.import=import"
+5. Click Start on Graph
+6. place info.csv in C:/ drive.
+7. Run this command in Browser:
+
+LOAD CSV FROM 'file:///C:/info.csv' AS line
+merge(continent:Continent{name:line[3]})
+merge(volcano:Volcano{name:line[0],location:line[1],lasterupted:line[2]})
+merge (volcano)-[:belongs_to]->(continent)
+
+8. View "Continent" node label in DB section
+
+MATCH (a:Continent),(b:Continent)
+WHERE a.name<>b.name AND b.name<>a.name
+CREATE (a)-[r:neighbours_to]->(b)
+return r
+
+MATCH (v:Volcano),(b:Volcano)
+WHERE v.name="Long Valley Caldera" AND b.name="Valles Caldera"
+CREATE (v)-[r:neighbours]->(b)
+return r
+
+MATCH (v:Volcano),(b:Volcano)
+WHERE v.name="Yellowstone Caldera" AND b.name="Valles Caldera"
+CREATE (b)-[r:neighbours]->(v)
+return r
+
+MATCH (v:Volcano),(b:Volcano)
+WHERE v.name="Lake Toba" AND b.name="Aira Caldera"
+CREATE (b)-[r:neighbours]->(v)
+return r
+//i changed sc_belt to neighbours  but this returns the top continent node
+match(v:Volcano)<-[:neighbours]-(:Volcano)-[:belongs_to]-(c:Continent)-->() WITH c, collect(v) as vls ORDER BY SIZE(vls) DESC LIMIT 1 RETURN c
+
